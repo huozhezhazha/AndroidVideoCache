@@ -61,7 +61,7 @@ class ProxyCache {
 
     public void shutdown() {
         synchronized (stopLock) {
-            Log.d(LOG_TAG, "Shutdown proxy for " + source);
+//            Log.d(LOG_TAG, "Shutdown proxy for " + source);
             try {
                 stopped = true;
                 if (sourceReaderThread != null) {

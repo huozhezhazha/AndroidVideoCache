@@ -125,7 +125,7 @@ public class HttpProxyCacheServer {
             byte[] response = new byte[expectedResponse.length];
             source.read(response);
             boolean pingOk = Arrays.equals(expectedResponse, response);
-            Log.d(LOG_TAG, "Ping response: `" + new String(response) + "`, pinged? " + pingOk);
+//            Log.d(LOG_TAG, "Ping response: `" + new String(response) + "`, pinged? " + pingOk);
             return pingOk;
         } catch (ProxyCacheException e) {
             Log.e(LOG_TAG, "Error reading ping response", e);
@@ -204,7 +204,7 @@ public class HttpProxyCacheServer {
     }
 
     public void shutdown() {
-        Log.i(LOG_TAG, "Shutdown proxy server");
+//        Log.i(LOG_TAG, "Shutdown proxy server");
 
         shutdownClients();
 
@@ -231,7 +231,7 @@ public class HttpProxyCacheServer {
         try {
             while (!Thread.currentThread().isInterrupted()) {
                 Socket socket = serverSocket.accept();
-                Log.d(LOG_TAG, "Accept new socket " + socket);
+//                Log.d(LOG_TAG, "Accept new socket " + socket);
                 socketProcessor.submit(new SocketProcessorRunnable(socket));
             }
         } catch (IOException e) {
@@ -242,7 +242,7 @@ public class HttpProxyCacheServer {
     private void processSocket(Socket socket) {
         try {
             GetRequest request = GetRequest.read(socket.getInputStream());
-            Log.i(LOG_TAG, "Request to cache proxy:" + request);
+            Log.d(LOG_TAG, "Request to cache proxy:" + request);
             String url = ProxyCacheUtils.decode(request.uri);
             if (PING_REQUEST.equals(url)) {
                 responseToPing(socket);
@@ -253,12 +253,12 @@ public class HttpProxyCacheServer {
         } catch (SocketException e) {
             // There is no way to determine that client closed connection http://stackoverflow.com/a/10241044/999458
             // So just to prevent log flooding don't log stacktrace
-            Log.d(LOG_TAG, "Closing socket… Socket is closed by client.");
+//            Log.d(LOG_TAG, "Closing socket… Socket is closed by client.");
         } catch (ProxyCacheException | IOException e) {
             onError(new ProxyCacheException("Error processing request", e));
         } finally {
             releaseSocket(socket);
-            Log.d(LOG_TAG, "Opened connections: " + getClientsCount());
+//            Log.d(LOG_TAG, "Opened connections: " + getClientsCount());
         }
     }
 
@@ -303,7 +303,7 @@ public class HttpProxyCacheServer {
         } catch (SocketException e) {
             // There is no way to determine that client closed connection http://stackoverflow.com/a/10241044/999458
             // So just to prevent log flooding don't log stacktrace
-            Log.d(LOG_TAG, "Releasing input stream… Socket is closed by client.");
+//            Log.d(LOG_TAG, "Releasing input stream… Socket is closed by client.");
         } catch (IOException e) {
             onError(new ProxyCacheException("Error closing socket input stream", e));
         }

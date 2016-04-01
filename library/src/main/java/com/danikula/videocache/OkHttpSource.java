@@ -96,7 +96,7 @@ public class OkHttpSource implements Source {
     }
 
     private void fetchContentInfo() throws ProxyCacheException {
-        Log.d(LOG_TAG, "Read content info from " + url);
+//        Log.d(LOG_TAG, "Read content info from " + url);
         Response response = null;
         try {
             response = openConnectionForHeader(10000);
@@ -105,11 +105,11 @@ public class OkHttpSource implements Source {
             }
             length = (int) response.body().contentLength();
             mime = response.body().contentType().toString();
-            Log.i(LOG_TAG, "Content info for `" + url + "`: mime: " + mime + ", content-length: " + length);
+//            Log.i(LOG_TAG, "Content info for `" + url + "`: mime: " + mime + ", content-length: " + length);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error fetching info from " + url, e);
         } finally {
-            Log.d(LOG_TAG, "Closed connection from :" + url);
+//            Log.d(LOG_TAG, "Closed connection from :" + url);
         }
     }
 
@@ -153,7 +153,7 @@ public class OkHttpSource implements Source {
         String newUrl = this.url;
         int redirectCount = 0;
         do {
-            Log.d(LOG_TAG, "Open connection" + (offset > 0 ? " with offset " + offset : "") + " to " + url);
+//            Log.d(LOG_TAG, "Open connection" + (offset > 0 ? " with offset " + offset : "") + " to " + url);
             Request.Builder requestBuilder = new Request.Builder();
             requestBuilder.get();
             requestBuilder.url(newUrl);
