@@ -20,11 +20,11 @@ class HttpProxyCache extends ProxyCache {
 
     private static final float NO_CACHE_BARRIER = .2f;
 
-    private final HttpUrlSource source;
+    private final OkHttpSource source;
     private final FileCache cache;
     private CacheListener listener;
 
-    public HttpProxyCache(HttpUrlSource source, FileCache cache) {
+    public HttpProxyCache(OkHttpSource source, FileCache cache) {
         super(source, cache);
         this.cache = cache;
         this.source = source;
@@ -88,7 +88,7 @@ class HttpProxyCache extends ProxyCache {
 
     private void responseWithoutCache(OutputStream out, long offset) throws ProxyCacheException, IOException {
         try {
-            HttpUrlSource source = new HttpUrlSource(this.source);
+            OkHttpSource source = new OkHttpSource(this.source);
             source.open((int) offset);
             byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
             int readBytes;
